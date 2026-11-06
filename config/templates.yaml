@@ -1,0 +1,44 @@
+# Blog Content Templates Configuration
+version: "1.0"
+default_template: "essay"
+
+templates:
+  essay:
+    label: "에세이 / 회고 (Essay)"
+    category: "essay"
+    description: "도입 - 핵심 이야기 - 생각의 변화 또는 여운. 지나친 섹션 분할을 지양하고 서사 흐름을 유지합니다."
+    recommended_sections:
+      - "들어가며"
+      - "이야기"
+      - "남은 생각"
+    avoid_excessive_headings: true
+
+  experience:
+    label: "경험 공유 (Experience)"
+    category: "experience"
+    description: "배경 - 상황 - 행동 - 결과 - 배운 점. 사건의 실제 시간 순서를 유지합니다."
+    recommended_sections:
+      - "배경과 상황"
+      - "시도한 행동과 과정"
+      - "결과 및 배운 점"
+    avoid_excessive_headings: false
+
+  technical-note:
+    label: "기술 노트 (Technical Note)"
+    category: "technical-note"
+    description: "문제 정의 - 환경 - 검토 과정 - 대안 비교 - 결론 및 재현 방법."
+    recommended_sections:
+      - "문제와 배경"
+      - "검토 및 해결 과정"
+      - "정리 및 참고"
+    avoid_excessive_headings: false
+
+  review:
+    label: "리뷰 / 후기 (Review)"
+    category: "review"
+    description: "대상 소개 - 검토 기준 - 실제 사용/경험 - 장단점 - 종합 의견."
+    recommended_sections:
+      - "검토 대상과 기준"
+      - "좋았던 점과 아쉬운 점"
+      - "종합 의견"
+    avoid_excessive_headings: false

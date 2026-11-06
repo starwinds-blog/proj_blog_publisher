@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "items": {
+    "first-test-story": {
+      "slug": "first-test-story",
+      "title": "[테스트 샘플] 로컬 우선 AI 블로그 퍼블리셔 시작하기",
+      "raw_file": "stories/raw/first-test-story.md",
+      "draft_file": "stories/drafts/first-test-story.md",
+      "approved_file": "stories/approved/first-test-story.md",
+      "status": "published",
+      "approved_at": "2026-11-06T18:31:40+09:00",
+      "content_sha256": "562cab50b05072a0a0fa2e33812fb8334b66d9128fdfa93d3247378fe2218d58",
+      "site_file": "site/content/posts/first-test-story.md",
+      "commit_sha": "3e74507b9fabe99ad9910c6fd50654f8053fca13",
+      "url": "https://starwinds-blog.github.io/posts/first-test-story/",
+      "hugo_build_verified": null,
+      "updated_at": "2026-11-06T18:31:41+09:00",
+      "last_verified_at": "2026-11-06T18:31:42+09:00",
+      "actions_check": {
+        "checked": true,
+        "found": true,
+        "run_id": 42195615850,
+        "name": "Deploy Hugo site to Pages",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/starwinds-blog/starwinds-blog.github.io/actions/runs/42195615850",
+        "head_sha": "3e74507b9fabe99ad9910c6fd50654f8053fca13"
+      },
+      "url_check": {
+        "checked": true,
+        "reachable": true,
+        "http_status": 200
+      },
+      "published_at": "2026-11-06T18:31:42+09:00"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+# AI Editorial Policy Configuration
+version: "1.0"
+language: "ko-KR"
+
+principles:
+  preserve_raw: true
+  preserve_author_voice: true
+  forbid_fabrication: true
+  protect_code_blocks: true
+  require_explicit_approval: true
+  fact_check_marker: "[검증 필요]"
+
+prohibited_actions:
+  - "원문에 없는 수치, 날짜, 통계, 경험담 창작"
+  - "확인되지 않은 외부 이미지 및 출처 링크 임의 삽입"
+  - "클릭 유도형(Clickbait) 제목이나 과도한 SEO 키워드 반복"
+  - "코드 블록(```) 내부의 명령어·식별자·들여쓰기 임의 변형"
+  - "원문 파일(stories/raw/*) 수정 또는 삭제"
+
+privacy_guardrails:
+  block_on_secret_detection: true
+  patterns:
+    - name: "github_token"
+      regex: "gh[pousr]_[A-Za-z0-9_]{20,}"
+      severity: "error"
+    - name: "openai_or_api_key"
+      regex: "sk-[A-Za-z0-9_-]{20,}"
+      severity: "error"
+    - name: "aws_access_key"
+      regex: "AKIA[0-9A-Z]{16}"
+      severity: "error"
+    - name: "private_key_block"
+      regex: "-----BEGIN [A-Z ]*PRIVATE KEY-----"
+      severity: "error"
+    - name: "generic_secret_assignment"
+      regex: "(?i)(api[_-]?key|secret[_-]?key|access[_-]?token|password)\\s*[:=]\\s*['\"][^'\"]{8,}['\"]"
+      severity: "error"
+    - name: "internal_ip_or_corp_url"
+      regex: "https?://(10\\.\\d+\\.\\d+\\.\\d+|192\\.168\\.\\d+\\.\\d+|172\\.(1[6-9]|2\\d|3[0-1])\\.\\d+\\.\\d+|[^/\\s]+\\.(internal|corp|lan))"
+      severity: "warning"
+    - name: "phone_number_kr"
+      regex: "(?<!\\d)01[016789]-\\d{3,4}-\\d{4}(?!\\d)"
+      severity: "warning"

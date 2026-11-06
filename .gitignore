@@ -1,0 +1,28 @@
+# Python / Virtualenv / Build
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+.pytest_cache/
+
+# Dashboard runtime DB & local state
+var/
+config/publishing.yaml
+
+# Sensitive files
+.env
+.env.*
+*.pem
+*.key
+*credentials*
+
+# Node / Web build artifacts (node_modules ignored, dist kept or rebuilt)
+app/web/node_modules/
+app/web/*.tsbuildinfo
+
+# Hugo generated artifacts & separate public blog repo
+site/
+
+# OS / Editor
+.DS_Store
+Thumbs.db

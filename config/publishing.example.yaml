@@ -1,0 +1,22 @@
+# Publishing Configuration Example
+# 실제 배포 시 config/publishing.yaml 로 복사하거나 대시보드 설정에서 수정하세요.
+# 임의의 GitHub 계정이나 도메인을 하드코딩하지 않습니다.
+
+site_title: "My Story & Tech Blog"
+site_description: "자유 형식 메모와 경험을 기록하는 로컬 우선 블로그"
+author_name: ""
+language_code: "ko-kr"
+
+# GitHub Pages 설정 (미설정 시 빈 문자열 유지 -> 로컬 미리보기 및 dry-run만 활성화)
+github_owner: ""
+github_repo: ""
+repo_type: "user"          # "user" (<username>.github.io) 또는 "project" (<username>.github.io/<repo>)
+base_url: "http://localhost:1313/"
+branch: "main"
+
+# 승인 및 배포 모드
+default_dry_run: true
+approval_mode: "cli_or_dashboard_explicit"  # "cli_or_dashboard_explicit" | "pull_request"
+allowlist_dirs:
+  - "content/posts"
+  - "static/images"

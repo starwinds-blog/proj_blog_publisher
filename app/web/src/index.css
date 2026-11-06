@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+/* 고해상도 모니터에서 전체 UI 가독성 향상 */
+html { font-size: 16px; }
+@media (min-width: 1600px) { html { font-size: 17px; } }
+@media (min-width: 1920px) { html { font-size: 18px; } }
+@media (min-width: 2400px) { html { font-size: 21px; } }
+
+/* Light theme: dark 기준 색상 변수를 반전/치환 (html.light) */
+html.light {
+  color-scheme: light;
+  --color-slate-50: #020617;
+  --color-slate-100: #0f172a;
+  --color-slate-200: #1e293b;
+  --color-slate-300: #334155;
+  --color-slate-400: #475569;
+  --color-slate-500: #64748b;
+  --color-slate-600: #94a3b8;
+  --color-slate-700: #cbd5e1;
+  --color-slate-800: #e2e8f0;
+  --color-slate-900: #ffffff;
+  --color-slate-950: #f1f5f9;
+
+  --color-emerald-300: #047857; --color-emerald-400: #059669; --color-emerald-950: #ecfdf5;
+  --color-amber-100: #78350f; --color-amber-200: #92400e; --color-amber-300: #b45309;
+  --color-amber-400: #b45309; --color-amber-700: #fcd34d; --color-amber-950: #fffbeb;
+  --color-rose-200: #9f1239; --color-rose-300: #be123c; --color-rose-400: #e11d48;
+  --color-rose-800: #fda4af; --color-rose-900: #ffe4e6; --color-rose-950: #fff1f2;
+  --color-emerald-800: #a7f3d0;
+  --color-sky-400: #0284c7;
+  --color-indigo-200: #3730a3; --color-indigo-300: #4338ca; --color-indigo-400: #4f46e5;
+  --color-indigo-950: #eef2ff;
+  --color-purple-400: #7e22ce;
+}
