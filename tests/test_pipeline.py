@@ -11,6 +11,7 @@ from fastapi.testclient import TestClient
 
 import scripts.pipeline_core as core
 from app.backend.main import app
+from app.backend.services.blog_service import update_publishing_settings
 from scripts.prepare_publish import approve_post, prepare_and_publish
 from scripts.story_editor import create_draft_from_raw
 from scripts.validate_post import validate_markdown_file
@@ -40,6 +41,9 @@ class TestBlogPublisherPipeline(unittest.TestCase):
             d.mkdir(parents=True, exist_ok=True)
 
         # Patch paths across modules
+        (self.site_dir / "hugo.toml").write_text(
+            'baseURL = "https://example.org/"\n', encoding="utf-8"
+        )
         self.patches = [
             patch("scripts.pipeline_core.PROJECT_ROOT", self.temp_dir),
             patch("scripts.pipeline_core.CONFIG_DIR", self.config_dir),
@@ -78,6 +82,17 @@ class TestBlogPublisherPipeline(unittest.TestCase):
         for p in reversed(self.patches):
             p.stop()
         shutil.rmtree(self.temp_dir, ignore_errors=True)
+
+    def test_settings_update_persists_publication_urls(self) -> None:
+        record = {"url": "https://old.example/posts/sample/", "status": "published"}
+        core.save_publications_registry({"version": "1.0", "items": {"sample": record}})
+
+        config = update_publishing_settings(None, {"base_url": "https://new.example/blog/"})
+
+        self.assertEqual(config["base_url"], "https://new.example/blog/")
+        saved = core.load_publications_registry()
+        self.assertEqual(saved["items"]["sample"]["url"], "https://new.example/blog/posts/sample/")
+        self.assertEqual(saved["items"]["sample"]["status"], "published")
 
     def test_1_korean_and_codeblock_preservation(self) -> None:
         """1. 한글 본문 교정 시 원본 불변 및 코드 블록 내부 텍스트 100% 보존 검증."""

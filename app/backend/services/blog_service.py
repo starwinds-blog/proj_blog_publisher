@@ -20,6 +20,7 @@ from scripts.pipeline_core import (
     load_publishing_config,
     now_kst_iso,
     parse_front_matter,
+    save_publications_registry,
     save_publishing_config,
     slugify,
 )
