@@ -135,8 +135,15 @@ def parse_front_matter(markdown_text: str) -> Tuple[Dict[str, Any], str, List[st
 def _parse_scalar(val: str) -> Any:
     # Strip trailing inline YAML comments outside quotes (e.g. `"user"  # comment`)
     val = re.sub(r'^(".*?"|\'.*?\'|[^#]*?)\s+#.*$', r"\1", val).strip()
-    if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
-        return val[1:-1].replace('\\"', '"')
+    if val.startswith('"') and val.endswith('"'):
+        # Our writer uses JSON strings (valid YAML scalars). Decode exactly one
+        # layer so repeated saves/approvals preserve newlines and backslashes.
+        try:
+            return json.loads(val)
+        except json.JSONDecodeError:
+            return val[1:-1].replace('\\"', '"')
+    if val.startswith("'") and val.endswith("'"):
+        return val[1:-1].replace("''", "'")
     low = val.lower()
     if low == "true":
         return True
