@@ -1,0 +1,56 @@
+{{ define "main" }}
+<style>
+  .home-heading { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin:0 0 1.25rem; }
+  .home-heading h1, .home-heading h2 { margin:0; }
+  .home-heading a { color:var(--muted); font-size:.9rem; }
+  .books-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:1.5rem; margin-bottom:3rem; }
+  .book-tile { display:block; color:var(--text); text-decoration:none; min-width:0; }
+  .book-tile:focus-visible { outline:3px solid var(--accent); outline-offset:6px; border-radius:10px; }
+  .book-cover { aspect-ratio:3/4; border-radius:3px 12px 12px 3px; padding:1.6rem 1.3rem 1.4rem 1.8rem; background:#d9dfcd; color:#24392c; box-shadow:inset 8px 0 0 #0002,inset 10px 0 0 #fff3,0 8px 20px #0003; display:flex; flex-direction:column; justify-content:space-between; transition:transform .18s; overflow:hidden; }
+  .book-tile:nth-child(3n+2) .book-cover { background:#e8d4bb; color:#513b28; }
+  .book-tile:nth-child(3n) .book-cover { background:#cbd7e8; color:#283b58; }
+  .book-tile:hover .book-cover { transform:translateY(-4px); }
+  .book-cover-label { font-size:.7rem; letter-spacing:.16em; border-top:1px solid currentColor; padding-top:.6rem; }
+  .book-cover h3 { font-size:1.8rem; line-height:1.45; margin:1rem 0; overflow-wrap:anywhere; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+  .book-cover-count { font-size:.8rem; }
+  .book-caption { margin:.9rem 0 .35rem; font-weight:600; }
+  .book-description { color:var(--muted); font-size:.85rem; margin:0; overflow-wrap:anywhere; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .recent-posts p { overflow-wrap:anywhere; }
+  @media(max-width:480px) { .books-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; } .book-cover { padding:1rem 1rem 1rem 1.2rem; } .book-cover h3 { font-size:1.25rem; } header { flex-wrap:wrap; gap:.75rem; } }
+  @media(prefers-reduced-motion:reduce) { .book-cover { transition:none; } }
+</style>
+<section aria-labelledby="home-books-title">
+  <div class="home-heading"><h1 id="home-books-title">Books</h1><a href="{{ "books/" | relURL }}">전체 보기 →</a></div>
+  <p class="meta">주제별로 묶은 글, 한 권씩 읽어보세요.</p>
+  <div class="books-grid">
+  {{ with .Site.Data.books }}
+    {{ range .items }}
+      {{ $count := 0 }}
+      {{ range .chapters }}{{ with site.GetPage (printf "/posts/%s" .) }}{{ if not .Draft }}{{ $count = add $count 1 }}{{ end }}{{ end }}{{ end }}
+      {{ if gt $count 0 }}
+      <a class="book-tile" href="{{ printf "books/#%s" .slug | relURL }}" aria-label="{{ .title }} · {{ $count }}개 챕터 목차 보기">
+        <div class="book-cover">
+          <span class="book-cover-label">BOOK COLLECTION</span>
+          <h3>{{ .title }}</h3>
+          <span class="book-cover-count">{{ $count }}개 챕터 · 목차 보기 ↗</span>
+        </div>
+        <p class="book-caption">{{ .title }}</p>
+        <p class="book-description">{{ .description | plainify }}</p>
+      </a>
+      {{ end }}
+    {{ end }}
+  {{ else }}<p class="meta">아직 공개된 책이 없습니다.</p>{{ end }}
+  </div>
+</section>
+<section class="recent-posts" aria-labelledby="recent-posts-title">
+  <div class="home-heading"><h2 id="recent-posts-title">최근 글</h2></div>
+  {{ range where .Site.RegularPages "Section" "posts" }}
+  <article class="post-card">
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <div class="meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>{{ with .Params.categories }} · {{ delimit . ", " }}{{ end }}</div>
+    <p>{{ with .Description }}{{ . | truncate 180 }}{{ else }}{{ .Summary }}{{ end }}</p>
+    <div>{{ range .Params.tags }}<span class="tag">#{{ . }}</span>{{ end }}</div>
+  </article>
+  {{ else }}<p class="meta">아직 발행된 게시글이 없습니다.</p>{{ end }}
+</section>
+{{ end }}

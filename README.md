@@ -109,3 +109,25 @@ hugo server -D --source site
 
 - **공개 저장소 주의:** GitHub Pages 공개 저장소에 push된 게시물은 인터넷 및 검색 엔진에 노출될 수 있습니다.
 - **원본 격리:** `stories/raw/`, `stories/drafts/`, `.env`, `var/`는 공개 사이트 경로(`site/content/posts/`)로 복사되지 않으며, allowlist를 통과하고 승인(`approved`)된 글만 반영됩니다.
+
+### Books: 주제별 글 묶음
+
+대시보드의 **Books · 주제별 묶음** 메뉴에서 책 제목, 소개, URL 식별자를 입력하고
+기존 글을 챕터로 추가할 수 있습니다. 위/아래 버튼으로 읽는 순서를 바꾸며,
+같은 글을 여러 책에 넣을 수도 있습니다. 책 삭제나 챕터 제외는 글 자체를 삭제하지 않습니다.
+
+1. **구성 저장**: `config/books.json`에 로컬 구성을 저장합니다. 다른 메뉴로 이동하기 전에 저장하세요.
+2. **공개 목차 미리보기 (Dry-run)**: `site/content/posts/`에 반영된 `draft: false` 글만 포함한 목차를 확인합니다.
+   사이트에 없는 글과 초안은 제외하며, 공개 챕터가 없는 책은 숨깁니다.
+3. **이 공개 구성을 승인하여 Hugo에 반영**: `site/data/books.json`에 공개 스냅샷을 기록하고
+   홈의 Books 표지 카드, `/books/` 목차 페이지, 헤더 메뉴를 설치합니다. 각 책 주소는 `/books/#<식별자>`입니다.
+4. 발행 센터에서 기존 게시물의 **Publish**를 명시적으로 승인하면 Books 변경도 함께 배포됩니다.
+   Books 저장/반영만으로 원격 push가 실행되지는 않습니다.
+
+글을 새로 사이트에 반영하거나 책 구성을 수정한 경우 공개 목차를 다시 미리보고 승인해야 합니다.
+공개 스냅샷은 마지막 승인 상태를 유지합니다. 제목/소개에서 토큰·비밀번호·이메일·전화번호·내부 URL이
+감지되면 공개 반영이 차단됩니다. 원문, 초안, 승인본은 Books 편집으로 변경되지 않습니다.
+템플릿 원본은 `deploy/hugo-books/home.html`(홈 표지 카드)과 `deploy/hugo-books/list.html`(목차)에 있습니다.
+
+API: `GET /api/blog/books`, `PUT /api/blog/books` (`items` 배열),
+`POST /api/blog/books/stage` (`dry_run: true` 기본값; 실제 반영 시 `approve: true, dry_run: false`).

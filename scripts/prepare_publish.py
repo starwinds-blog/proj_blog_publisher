@@ -320,12 +320,15 @@ def prepare_and_publish(
 
             if git_cwd == SITE_DIR:
                 # Stage base Hugo scaffold files (hugo.toml, layouts, workflow) + approved post
-                for base_item in (".gitignore", "hugo.toml", "layouts", ".github", "static", f"content/posts/{slug}.md"):
+                for base_item in (".gitignore", "hugo.toml", "layouts", ".github", "static", "data/books.json", "content/books/_index.md", f"content/posts/{slug}.md"):
                     if (SITE_DIR / base_item).exists():
                         subprocess.run(["git", "add", base_item], cwd=str(git_cwd), check=False)
             else:
                 rel_post_path = f"site/content/posts/{slug}.md"
                 subprocess.run(["git", "add", rel_post_path], cwd=str(git_cwd), check=False)
+                for books_path in ("site/data/books.json", "site/content/books/_index.md", "site/layouts/books/list.html", "site/layouts/index.html", "site/layouts/_default/baseof.html"):
+                    if (PROJECT_ROOT / books_path).exists():
+                        subprocess.run(["git", "add", books_path], cwd=str(git_cwd), check=False)
             commit_msg = f"publish(post): {slug} - {meta.get('title', slug)}"
             commit_proc = subprocess.run(
                 ["git", "commit", "-m", commit_msg],

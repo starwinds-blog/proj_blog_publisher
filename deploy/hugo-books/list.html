@@ -1,0 +1,31 @@
+{{ define "main" }}
+<h1>Books</h1>
+<p class="meta">주제별로 묶은 글을 목차 순서대로 읽어보세요.</p>
+{{ $books := slice }}
+{{ with .Site.Data.books }}{{ $books = .items }}{{ end }}
+<nav aria-label="책 목록">
+  {{ range $books }}<p><a href="#{{ .slug }}">{{ .title }}</a></p>{{ end }}
+</nav>
+{{ range $books }}
+  {{ $chapters := slice }}
+  {{ range .chapters }}
+    {{ with site.GetPage (printf "/posts/%s" .) }}
+      {{ if not .Draft }}{{ $chapters = $chapters | append . }}{{ end }}
+    {{ end }}
+  {{ end }}
+  {{ if $chapters }}
+  <section class="post-card" id="{{ .slug }}">
+    <h2>{{ .title }}</h2>
+    <p>{{ .description }}</p>
+    <p class="meta">{{ len $chapters }} chapters</p>
+    <ol>
+      {{ range $chapters }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ with .Description }}<p class="meta">{{ . }}</p>{{ end }}</li>
+      {{ end }}
+    </ol>
+  </section>
+  {{ end }}
+{{ else }}
+<p class="meta">아직 공개된 책이 없습니다.</p>
+{{ end }}
+{{ end }}

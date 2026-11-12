@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from app.backend.db.database import get_db
+from app.backend.services.books_service import BooksDocument, load_books, save_books, stage_books
 from app.backend.services.blog_service import (
     create_story_and_draft,
     get_story_detail,
@@ -188,3 +189,32 @@ def api_get_publishing_settings():
 def api_update_publishing_settings(req: PublishingConfigRequest, db: Session = Depends(get_db)):
     payload = {k: v for k, v in req.model_dump().items() if v is not None}
     return update_publishing_settings(db, payload)
+
+
+# Books are edited independently of immutable story sources and approval records.
+
+
+class StageBooksRequest(BaseModel):
+    approve: bool = False
+    dry_run: bool = True
+
+
+@router.get("/books")
+def api_get_books():
+    return load_books().model_dump()
+
+
+@router.put("/books")
+def api_save_books(req: BooksDocument):
+    try:
+        return save_books(req, {story["slug"] for story in list_all_stories()})
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/books/stage")
+def api_stage_books(req: StageBooksRequest):
+    try:
+        return stage_books(approve=req.approve, dry_run=req.dry_run)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc

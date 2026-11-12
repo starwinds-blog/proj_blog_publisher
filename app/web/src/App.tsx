@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  BookOpen,
   CheckCircle2,
   FileEdit,
   GitCompare,
@@ -9,12 +10,13 @@ import {
   Sparkles,
   Sun,
 } from 'lucide-react';
+import { BooksPage } from './pages/BooksPage';
 import { OverviewPage } from './pages/OverviewPage';
 import { StoryStudioPage } from './pages/StoryStudioPage';
 import { ReviewGatePage } from './pages/ReviewGatePage';
 import { PublishCenterPage } from './pages/PublishCenterPage';
 
-export type NavTab = 'overview' | 'studio' | 'review' | 'publish';
+export type NavTab = 'overview' | 'studio' | 'review' | 'publish' | 'books';
 
 export const App: React.FC = () => {
   const [tab, setTab] = useState<NavTab>('overview');
@@ -45,6 +47,7 @@ export const App: React.FC = () => {
     { id: 'overview', label: '대시보드 홈 (파이프라인)', icon: <LayoutDashboard className="w-4 h-4" /> },
     { id: 'studio', label: '스토리 입력 & 초안 스튜디오', icon: <FileEdit className="w-4 h-4" /> },
     { id: 'review', label: 'Diff 검토 & 승인 게이트', icon: <GitCompare className="w-4 h-4" /> },
+    { id: 'books', label: 'Books · 주제별 묶음', icon: <BookOpen className="w-4 h-4" /> },
     { id: 'publish', label: '발행 센터 & 배포 설정', icon: <Rocket className="w-4 h-4" /> },
   ];
 
@@ -52,10 +55,10 @@ export const App: React.FC = () => {
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
       {/* Top Navbar */}
       <header className="sticky top-0 z-30 bg-slate-900/90 backdrop-blur border-b border-slate-800">
-        <div className="max-w-[96rem] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        <div className="max-w-[96rem] mx-auto px-4 sm:px-6 lg:px-8 min-h-16 py-3 lg:py-0 flex flex-wrap lg:flex-nowrap items-center justify-between gap-3">
           <div
             onClick={() => setTab('overview')}
-            className="flex items-center gap-3 cursor-pointer"
+            className="flex min-w-0 flex-1 lg:flex-initial items-center gap-3 cursor-pointer"
           >
             <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-600/30">
               <Sparkles className="w-5 h-5" />
@@ -70,7 +73,7 @@ export const App: React.FC = () => {
             </div>
           </div>
 
-          <nav className="flex items-center gap-1 overflow-x-auto">
+          <nav className="order-last lg:order-none w-full lg:w-auto min-w-0 flex items-center gap-1 overflow-x-auto">
             {navItems.map((item) => {
               const active = tab === item.id;
               return (
@@ -112,6 +115,7 @@ export const App: React.FC = () => {
 
       {/* Main Content */}
       <main className="flex-1 max-w-[96rem] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {tab === 'books' && <BooksPage onNavigate={handleNavigate} />}
         {tab === 'overview' && <OverviewPage onNavigate={handleNavigate} />}
         {tab === 'studio' && (
           <StoryStudioPage

@@ -26,3 +26,4 @@ site/
 # OS / Editor
 .DS_Store
 Thumbs.db
+.gstack/
