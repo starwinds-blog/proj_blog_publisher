@@ -8,30 +8,62 @@
       "draft_file": "stories/drafts/first-test-story.md",
       "approved_file": "stories/approved/first-test-story.md",
       "status": "published",
-      "approved_at": "2026-11-06T18:31:40+09:00",
+      "approved_at": "2026-11-12T15:59:15+09:00",
       "content_sha256": "562cab50b05072a0a0fa2e33812fb8334b66d9128fdfa93d3247378fe2218d58",
       "site_file": "site/content/posts/first-test-story.md",
-      "commit_sha": "3e74507b9fabe99ad9910c6fd50654f8053fca13",
+      "commit_sha": "f45bf4564df8005a1b62935e33f56bd57ad8b1f3",
       "url": "https://starwinds-blog.github.io/posts/first-test-story/",
-      "hugo_build_verified": null,
-      "updated_at": "2026-11-06T18:31:41+09:00",
-      "last_verified_at": "2026-11-06T18:31:42+09:00",
+      "hugo_build_verified": true,
+      "updated_at": "2026-11-12T15:59:18+09:00",
+      "last_verified_at": "2026-11-12T15:59:22+09:00",
       "actions_check": {
         "checked": true,
         "found": true,
-        "run_id": 42195615850,
+        "run_id": 42594568507,
         "name": "Deploy Hugo site to Pages",
         "status": "completed",
         "conclusion": "success",
-        "html_url": "https://github.com/starwinds-blog/starwinds-blog.github.io/actions/runs/42195615850",
-        "head_sha": "3e74507b9fabe99ad9910c6fd50654f8053fca13"
+        "html_url": "https://github.com/starwinds-blog/starwinds-blog.github.io/actions/runs/42594568507",
+        "head_sha": "f45bf4564df8005a1b62935e33f56bd57ad8b1f3"
       },
       "url_check": {
         "checked": true,
         "reachable": true,
         "http_status": 200
       },
-      "published_at": "2026-11-06T18:31:42+09:00"
+      "published_at": "2026-11-12T15:59:22+09:00"
+    },
+    "story-post-61238": {
+      "slug": "story-post-61238",
+      "title": "컨텍스트 스위칭에 관하여",
+      "raw_file": "stories/raw/story-post-61238.md",
+      "draft_file": "stories/drafts/story-post-61238.md",
+      "approved_file": "stories/approved/story-post-61238.md",
+      "status": "published",
+      "approved_at": "2026-11-12T16:11:35+09:00",
+      "content_sha256": "a61d046a103c0d3be67caa8251a3586680142b05b3b08311ff39d8d0fce11c06",
+      "last_verified_at": "2026-11-12T16:11:54+09:00",
+      "actions_check": {
+        "checked": true,
+        "found": true,
+        "run_id": 43173455549,
+        "name": "Deploy Hugo site to Pages",
+        "status": "queued",
+        "conclusion": null,
+        "html_url": "https://github.com/starwinds-blog/starwinds-blog.github.io/actions/runs/43173455549",
+        "head_sha": "00b24f954a1e0677e81cc40396dcf61840680fe1"
+      },
+      "url_check": {
+        "checked": true,
+        "reachable": true,
+        "http_status": 200
+      },
+      "site_file": "site/content/posts/story-post-61238.md",
+      "commit_sha": "00b24f954a1e0677e81cc40396dcf61840680fe1",
+      "url": "https://starwinds-blog.github.io/posts/story-post-61238/",
+      "hugo_build_verified": true,
+      "updated_at": "2026-11-12T16:11:41+09:00",
+      "published_at": "2026-11-12T16:10:47+09:00"
     }
   }
 }
